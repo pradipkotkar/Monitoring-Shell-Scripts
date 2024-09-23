@@ -1,5 +1,6 @@
 # Disk Space Monitoring Script with Slack Alerts
-This repository contains a shell script that monitors disk space usage on an AWS EC2 instance and sends an alert to a specified Slack channel when the disk usage exceeds a certain threshold. The script fetches the instance ID, private IP, and other details to provide context in the alert.
+
+This directory contains a shell script that monitors disk space usage on an AWS EC2 instance and sends an alert to a specified Slack channel when the disk usage exceeds a certain threshold. The script fetches the instance ID, private IP, and other details to provide context in the alert.
 
 ## Requirements
 
@@ -16,22 +17,22 @@ This repository contains a shell script that monitors disk space usage on an AWS
    cd /customscripts
    git clone <repository-url>
    ```
-   Copy the script to /customscripts
+   Copy the script to `/customscripts`.
 
 2. **Setup a Cron Job**: Set up a cron job to run the script at your desired interval. For example, to run the script every hour:
    ```bash
    crontab -e
    ```
-   Add the line in following format:
+   Add the line in the following format:
    ```bash
-   0 * * * * /bin/bash /customscripts/disk-space-slack-alert.sh <projectname-servername> <disk> <threshould> <slack-webhook>
+   0 * * * * /bin/bash /customscripts/disk-space-slack-alert.sh <projectname-servername> <disk> <threshold> <slack-webhook>
    ```
    Example:
    ```bash
    0 * * * * /bin/bash /customscripts/disk-space-slack-alert.sh ProjectX-ServerX / 80 https://hooks.slack.com/services/XXXXXXXXXX/XXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ```
 
-3. **Test the Script**: Run the script manually to ensure it works as expected. lower down the threshould. Example: 
+3. **Test the Script**: Run the script manually to ensure it works as expected. Lower the threshold to trigger the alert for testing purposes. Example: 
    ```bash
    /bin/bash /customscripts/disk-space-slack-alert.sh ProjectX-ServerX / 10 https://hooks.slack.com/services/XXXXXXXXXX/XXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ```

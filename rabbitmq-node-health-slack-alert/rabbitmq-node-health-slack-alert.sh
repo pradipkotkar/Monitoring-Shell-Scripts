@@ -1,12 +1,11 @@
 #!/bin/bash
 
 # Script to monitor RabbitMQ node health and send alerts to Slack
-### How to use #######################
-# 1. Save this script as `monitor_rabbitmq_slack.sh`
-# 2. Make the script executable: `chmod +x monitor_rabbitmq_slack.sh`
-# 3. Run the script with the RabbitMQ username and password as arguments
-#    Example: `./monitor_rabbitmq_slack.sh guest guest`
-#####################################
+# Usage:
+# 1. Save this script as `rabbitmq-node-health-slack-alert.sh`
+# 2. Make the script executable: `chmod +x rabbitmq-node-health-slack-alert.sh`
+# 3. Run the script with the RabbitMQ username, password, and Slack webhook URL as arguments:
+#    sh rabbitmq-node-health-slack-alert.sh <RABBITMQ_USER> <RABBITMQ_PASSWORD> <SLACK_WEBHOOK_URL>
 
 
 # RabbitMQ node details

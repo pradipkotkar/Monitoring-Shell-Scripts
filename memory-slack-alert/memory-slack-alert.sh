@@ -1,9 +1,9 @@
 #!/bin/bash
-# Script to get alerts on slack for memory usage
+# Script to get alerts on Slack for memory usage
 
-### How to use #######################
-# sh customscripts/memory-slack-alert.sh SERVER_NAME THRESHOLD slack_channel_webhook
-# Example:: sh customscripts/momory-slack-alert.sh inpeak-jenkins  54 https://hooks.slack.com/services/T********/BUSUD*****/Z4R16ll8****************
+### Usage ############################
+# ./memory-slack-alert.sh SERVER_NAME THRESHOLD SLACK_CHANNEL_WEBHOOK
+# Example: ./memory-slack-alert.sh projectx-serverx 54 https://hooks.slack.com/services/XXXXXXXXXX/XXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 #-------------------------------------
 
 
