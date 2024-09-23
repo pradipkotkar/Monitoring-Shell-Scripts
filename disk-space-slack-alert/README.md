@@ -18,29 +18,27 @@ This repository contains a shell script that monitors disk space usage on an AWS
    ```
    Copy the script to /customscripts
 
-2. **Configure the Script**: Open the script file and configure the following variables:
-   - `THRESHOLD`: Set the disk usage percentage threshold for alerts.
-   - `WEBHOOK_URL`: Set your Slack incoming webhook URL.
-   - `INSTANCE_ID`: (Optional) Set your EC2 instance ID if not fetched automatically.
-   - `PRIVATE_IP`: (Optional) Set your EC2 private IP if not fetched automatically.
-
-3. **Setup a Cron Job**: Set up a cron job to run the script at your desired interval. For example, to run the script every hour:
+2. **Setup a Cron Job**: Set up a cron job to run the script at your desired interval. For example, to run the script every hour:
    ```bash
    crontab -e
    ```
-   Add the following line:
+   Add the line in following format:
    ```bash
-   0 * * * * /bin/bash /customscripts/disk-space-slack-alert.sh
+   0 * * * * /bin/bash /customscripts/disk-space-slack-alert.sh <projectname-servername> <disk> <threshould> <slack-webhook>
+   ```
+   Example:
+   ```bash
+   0 * * * * /bin/bash /customscripts/disk-space-slack-alert.sh ProjectX-ServerX / 80 https://hooks.slack.com/services/XXXXXXXXXX/XXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ```
 
-4. **Test the Script**: Run the script manually to ensure it works as expected:
+3. **Test the Script**: Run the script manually to ensure it works as expected. lower down the threshould. Example: 
    ```bash
-   /bin/bash /customscripts/disk-space-slack-alert.sh
+   /bin/bash /customscripts/disk-space-slack-alert.sh ProjectX-ServerX / 10 https://hooks.slack.com/services/XXXXXXXXXX/XXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ```
 
 ## Example Output
 
-When the disk usage exceeds the threshold, the script sends an alert to the specified Slack channel with details like instance ID, private IP, and current disk usage.
+When the disk usage exceeds the threshold, the script sends an alert to the specified Slack channel with details like instance ID, private IP, and current disk usage including all disks.
 
 ## Troubleshooting
 
