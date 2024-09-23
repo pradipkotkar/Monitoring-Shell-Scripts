@@ -16,6 +16,7 @@ This repository contains a shell script that monitors disk space usage on an AWS
    cd /customscripts
    git clone <repository-url>
    ```
+   Copy the script to /customscripts
 
 2. **Configure the Script**: Open the script file and configure the following variables:
    - `THRESHOLD`: Set the disk usage percentage threshold for alerts.
