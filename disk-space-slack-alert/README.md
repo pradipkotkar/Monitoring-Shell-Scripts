@@ -1,69 +1,61 @@
-Disk Space Monitoring with Slack Alerts
+# Disk Space Monitoring Script with Slack Alerts
+This repository contains a shell script that monitors disk space usage on an AWS EC2 instance and sends an alert to a specified Slack channel when the disk usage exceeds a certain threshold. The script fetches the instance ID, private IP, and other details to provide context in the alert.
 
-This script monitors disk space on a specified server and sends a Slack alert when the disk usage exceeds a defined threshold. It's designed to help system administrators keep track of disk usage and receive timely alerts on Slack.
-Prerequisites
+## Requirements
 
-Before using this script, ensure you have the following:
+- **AWS EC2**: This script is specifically tailored for AWS EC2 instances, but it can be modified for use in other cloud environments.
+- **Slack Webhook**: You need a Slack incoming webhook URL to send alerts to your desired Slack channel.
 
-    Slack Incoming Webhook URL: You'll need to set up a Slack Incoming Webhook to receive alerts in your Slack workspace. You can follow Slack's Incoming Webhooks Guide to get your webhook URL.
+## How to Use
 
-    Custom Scripts Directory: This script should be placed in a directory such as /customscripts/ on your server.
+1. **Clone or Copy the Script**: Clone or copy this script to your desired location on the EC2 instance.
+   
+   Example directory:
+   ```bash
+   mkdir /customscripts
+   cd /customscripts
+   git clone <repository-url>
+   ```
 
-    Execute Permission: Ensure the script has execution permission using the following command:
+2. **Configure the Script**: Open the script file and configure the following variables:
+   - `THRESHOLD`: Set the disk usage percentage threshold for alerts.
+   - `WEBHOOK_URL`: Set your Slack incoming webhook URL.
+   - `INSTANCE_ID`: (Optional) Set your EC2 instance ID if not fetched automatically.
+   - `PRIVATE_IP`: (Optional) Set your EC2 private IP if not fetched automatically.
 
-    bash
+3. **Setup a Cron Job**: Set up a cron job to run the script at your desired interval. For example, to run the script every hour:
+   ```bash
+   crontab -e
+   ```
+   Add the following line:
+   ```bash
+   0 * * * * /bin/bash /customscripts/disk-space-slack-alert.sh
+   ```
 
-    chmod +x /customscripts/diskspace-slack-alert.sh
+4. **Test the Script**: Run the script manually to ensure it works as expected:
+   ```bash
+   /bin/bash /customscripts/disk-space-slack-alert.sh
+   ```
 
-How to Use
+## Example Output
 
-    Place the Script: Create a directory for custom scripts and place the diskspace-slack-alert.sh script in it:
+When the disk usage exceeds the threshold, the script sends an alert to the specified Slack channel with details like instance ID, private IP, and current disk usage.
 
-    bash
+## Troubleshooting
 
-mkdir -p /customscripts
-cp diskspace-slack-alert.sh /customscripts/
+- Ensure that the script has execute permissions:
+  ```bash
+  chmod +x /customscripts/disk-space-slack-alert.sh
+  ```
+- Check the cron job logs if the script does not run as expected:
+  ```bash
+  grep CRON /var/log/syslog
+  ```
 
-Run the Script: Use the following syntax to run the script:
+## Contributing
 
-bash
+Feel free to submit issues or pull requests if you have suggestions for improvements or bug fixes.
 
-sh /customscripts/diskspace-slack-alert.sh <SERVER_NAME> <DISKNAME> <THRESHOLD> <SLACK_WEBHOOK_URL>
+## License
 
-    SERVER_NAME: The name or identifier of the server (for example: projectx-jenkins).
-    DISKNAME: The disk or partition to monitor (for example: / for root partition).
-    THRESHOLD: The disk usage percentage that will trigger the alert (for example: 54).
-    SLACK_WEBHOOK_URL: The Slack Incoming Webhook URL for the channel where alerts should be sent.
-
-Example Command:
-
-bash
-
-sh /customscripts/diskspace-slack-alert.sh projectx-jenkins / 54 https://hooks.slack.com/services/XXXXXXXXXX/XXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-Alert Structure: When the disk usage crosses the defined threshold, the script will send a Slack alert in the following format:
-
-ruby
-
-    :warning: WARNING: Your server `SERVER_NAME` IP `PRIVATE_IP` InstanceID `INSTANCE_ID` disk `DISKNAME` is currently at `CURRENT_USAGE%` capacity.
-
-Monitoring Multiple Disks
-
-To monitor multiple disks, you can schedule the script using a cron job or invoke the script for each disk with different parameters.
-Example Cron Job:
-
-To run this script every hour and monitor the root disk, you can add the following line to your crontab:
-
-bash
-
-0 * * * * sh /customscripts/diskspace-slack-alert.sh projectx-jenkins / 80 https://hooks.slack.com/services/XXXXXXXXXX/XXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-Future Enhancements
-
-    Extend support for multiple disks automatically.
-    Add more alerting channels like email or other messaging platforms.
-
-License
-
-This script is open-source and licensed under the MIT License. Contributions are welcome.
-
+This project is licensed under the MIT License.
